@@ -9,7 +9,9 @@
 
 class UInputMappingContext;
 class UInputAction;
-
+class UBoxComponent;
+class UCameraComponent;
+class USpringArmComponent;
 
 /**
  * 
@@ -39,6 +41,11 @@ protected:
 	void ApplySteering(const FInputActionValue& Value);
 
 private:
-	
+	UPROPERTY(Category="BoxCollider", EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	UBoxComponent* BoxCollider;
+	UPROPERTY(Category="Camera", EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	USpringArmComponent* SpringArm;
+	UPROPERTY(Category="Camera", EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
+	UCameraComponent* Camera;
 	
 };

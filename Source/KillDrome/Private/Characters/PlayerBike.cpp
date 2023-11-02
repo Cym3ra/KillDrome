@@ -6,12 +6,28 @@
 #include "EnhancedInputSubsystems.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
+#include "Components/BoxComponent.h"
 
 APlayerBike::APlayerBike()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	GetCharacterMovement()->bOrientRotationToMovement = false;
+	
 	GetCharacterMovement()->bUseControllerDesiredRotation = true;
+	GetCharacterMovement()->bOrientRotationToMovement = false;
+
+	BoxCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollider"));
+	BoxCollider->SetupAttachment(GetRootComponent());
+	
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
+	SpringArm->SetupAttachment(GetMesh());
+	SpringArm->TargetArmLength = 450.f;
+	SpringArm->SetRelativeLocation(FVector(-165.f, 0.f, 200.f));
+	SpringArm->SetRelativeRotation(FRotator(-10.f, 0.f, 0.f));
+
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	Camera->SetupAttachment(SpringArm);
 }
 
 void APlayerBike::BeginPlay()

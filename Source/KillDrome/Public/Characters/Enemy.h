@@ -6,6 +6,9 @@
 #include "Base/BaseBike.h"
 #include "Enemy.generated.h"
 
+class UBehaviorTree;
+class ABikeAIController;
+
 /**
  * 
  */
@@ -13,5 +16,18 @@ UCLASS()
 class KILLDROME_API AEnemy : public ABaseBike
 {
 	GENERATED_BODY()
+
+public:
+	AEnemy();
+	virtual void PossessedBy(AController* NewController) override;
+
+protected:
+
+	UPROPERTY(EditAnywhere, Category="AI")
+	TObjectPtr<UBehaviorTree> BehaviorTree;
+
+	UPROPERTY()
+	TObjectPtr<ABikeAIController> BikeAIController;
+	
 	
 };
