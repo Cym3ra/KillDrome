@@ -15,11 +15,12 @@ ABikeProjectile::ABikeProjectile()
 
 	Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
 	SetRootComponent(Sphere);
-	Sphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	Sphere->SetCollisionResponseToAllChannels(ECR_Ignore);
-	Sphere->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
-	Sphere->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Overlap);
-	Sphere->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	Sphere->SetGenerateOverlapEvents(true);
+	// Sphere->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	// Sphere->SetCollisionResponseToAllChannels(ECR_Ignore);
+	// Sphere->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
+	// Sphere->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Overlap);
+	// Sphere->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 
 	ProjectileMovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovement");
 	ProjectileMovementComp->InitialSpeed = 1200.f;
@@ -51,7 +52,10 @@ void ABikeProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, 
 void ABikeProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	FVector NormalImpulse, const FHitResult& Hit)
 {
-	
+	UE_LOG(LogTemp, Warning, TEXT("OnHit"));
+	UE_LOG(LogTemp, Warning, TEXT("HitComp: %s"), *HitComp->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("OtherActor: %s"), *OtherActor->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("OtherComp: %s"), *OtherComp->GetName());
 }
 
 

@@ -58,7 +58,7 @@ void APlayerBike::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		//EnhancedInputComponent->BindAction(ThrottleAction,ETriggerEvent::Completed, this, &ABaseBike::ApplyThrottle);
 		EnhancedInputComponent->BindAction(SteeringAction, ETriggerEvent::Triggered, this, &APlayerBike::ApplySteering);
 		//EnhancedInputComponent->BindAction(SteeringAction, ETriggerEvent::Completed, this, &ABaseBike::ApplySteering);
-		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &APlayerBike::Fire);
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &APlayerBike::Fire);
 	}
 }
 	
