@@ -21,6 +21,9 @@ public:
 	AEnemy();
 	virtual void PossessedBy(AController* NewController) override;
 
+	UPROPERTY(BlueprintReadWrite, Category="Combat")
+	TObjectPtr<AActor> CombatTarget;
+
 protected:
 
 	UPROPERTY(EditAnywhere, Category="AI")

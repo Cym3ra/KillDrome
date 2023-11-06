@@ -21,11 +21,17 @@ public:
 protected:
 
 	virtual void BeginPlay() override;
+	void Fire();
 
 
 private:
-	
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components", meta=(AllowPrivateAccess = "true"))
+	USceneComponent* ProjectileSpawnPoint;
 
+	UPROPERTY(EditDefaultsOnly, Category="Combat")
+	TSubclassOf<class ABikeProjectile> ProjectileClass;
 
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase> LaserShotSound;
 };

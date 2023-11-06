@@ -33,7 +33,8 @@ protected:
 	UInputMappingContext* VehicleContext;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= Input)
 	UInputAction* ThrottleAction;
-
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= Input)
+	UInputAction* FireAction;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= Input)
 	UInputAction* SteeringAction;
 

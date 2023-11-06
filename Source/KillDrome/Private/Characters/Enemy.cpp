@@ -20,4 +20,5 @@ void AEnemy::PossessedBy(AController* NewController)
 
 	BikeAIController->GetBlackboardComponent()->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
 	BikeAIController->RunBehaviorTree(BehaviorTree);
+	BikeAIController->GetBlackboardComponent()->SetValueAsBool(FName("HitReacting"), false);
 }
