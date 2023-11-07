@@ -33,6 +33,7 @@ private:
 	UPROPERTY()
 	class ABikePlayerController* BikePlayerController;
 
+	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	float Startdelay = 3.f;
 
 	void HandleGameStart();
