@@ -25,6 +25,9 @@ public:
 	APlayerBike();
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void HandleDeath() override;
+
+	FORCEINLINE TObjectPtr<APlayerController> GetPlayerController() const {return PlayerBikeController;}
 
 protected:
 	virtual void BeginPlay() override;
@@ -48,5 +51,8 @@ private:
 	USpringArmComponent* SpringArm;
 	UPROPERTY(Category="Camera", EditDefaultsOnly, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	UCameraComponent* Camera;
+
+	UPROPERTY()
+	APlayerController* PlayerBikeController;
 	
 };

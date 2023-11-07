@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "BaseBike.generated.h"
 
+class UAttributes;
 
 UCLASS()
 class KILLDROME_API ABaseBike : public ACharacter
@@ -16,12 +17,16 @@ public:
 
 	ABaseBike();
 	virtual void Tick(float DeltaTime) override;
+	virtual void HandleDeath();
 
-	
 protected:
 
 	virtual void BeginPlay() override;
 	void Fire();
+	
+	UPROPERTY(VisibleAnywhere)
+	UAttributes* Attributes;
+
 
 
 private:
@@ -32,6 +37,5 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	TSubclassOf<class ABikeProjectile> ProjectileClass;
 
-	UPROPERTY(EditAnywhere)
-	TObjectPtr<USoundBase> LaserShotSound;
+
 };

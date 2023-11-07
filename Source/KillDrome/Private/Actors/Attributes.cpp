@@ -4,6 +4,8 @@
 #include "Actors/Attributes.h"
 
 #include "CookerSettings.h"
+#include "GameMode/BikeGameMode.h"
+#include "Kismet/GameplayStatics.h"
 
 
 UAttributes::UAttributes()
@@ -19,13 +21,22 @@ void UAttributes::BeginPlay()
 	CurrentHealth = MaxHealth;
 
 	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UAttributes::DamageTaken);
+
+	BikeGameMode = Cast<ABikeGameMode>(UGameplayStatics::GetGameMode(this));
 	
 }
 
 void UAttributes::DamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType,
 	AController* Instigator, AActor* DamageCauser)
 {
-	
+	if (Damage <= 0.f){return;}
+
+	CurrentHealth -= Damage;
+
+	if (CurrentHealth <= 0.f && BikeGameMode)
+	{
+		BikeGameMode->ActorDied(DamagedActor);
+	}
 }
 
 

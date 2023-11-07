@@ -2,6 +2,8 @@
 
 
 #include "Base/BaseBike.h"
+
+#include "Actors/Attributes.h"
 #include "Actors/BikeProjectile.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -17,6 +19,8 @@ ABaseBike::ABaseBike()
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>("SpawnPoint");
 	ProjectileSpawnPoint->SetupAttachment(GetMesh());
 
+	Attributes = CreateDefaultSubobject<UAttributes>("Attributes");
+	
 }
 
 void ABaseBike::BeginPlay()
@@ -29,14 +33,19 @@ void ABaseBike::Fire()
 	FVector Location = ProjectileSpawnPoint->GetComponentLocation();
 	FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
 	
-	GetWorld()->SpawnActor<ABikeProjectile>(ProjectileClass, Location, Rotation);
-	UGameplayStatics::PlaySoundAtLocation(this, LaserShotSound, GetActorLocation(), FRotator::ZeroRotator);
+	auto Projectile = GetWorld()->SpawnActor<ABikeProjectile>(ProjectileClass, Location, Rotation);
+	Projectile->SetOwner(this);
 }
 
 void ABaseBike::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ABaseBike::HandleDeath()
+{
+	
 }
 
 

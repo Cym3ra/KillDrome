@@ -42,4 +42,10 @@ private:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USoundBase> ImpactSound;
 	
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase> LaserShotSound;
+
+	UPROPERTY(EditAnywhere, Category="Damage")
+	float Damage = 50.f;
+	
 };

@@ -61,8 +61,18 @@ void APlayerBike::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &APlayerBike::Fire);
 	}
 }
-	
-	void APlayerBike::ApplyThrottle(const FInputActionValue& Value)
+
+void APlayerBike::HandleDeath()
+{
+	Super::HandleDeath();
+
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
+
+	//TODO: Implement that one the player dies, after a short wait the player spawns at the start again
+}
+
+void APlayerBike::ApplyThrottle(const FInputActionValue& Value)
 	{
 	FRotator Rotation = Controller->GetControlRotation();
 	FRotator Direction(0.0f, Rotation.Yaw, 0.0f);

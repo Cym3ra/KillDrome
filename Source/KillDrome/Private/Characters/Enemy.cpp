@@ -22,3 +22,9 @@ void AEnemy::PossessedBy(AController* NewController)
 	BikeAIController->RunBehaviorTree(BehaviorTree);
 	BikeAIController->GetBlackboardComponent()->SetValueAsBool(FName("HitReacting"), false);
 }
+
+void AEnemy::HandleDeath()
+{
+	Super::HandleDeath();
+	Destroy();
+}

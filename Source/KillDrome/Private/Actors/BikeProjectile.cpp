@@ -36,6 +36,7 @@ void ABikeProjectile::BeginPlay()
 	//Sphere->OnComponentBeginOverlap.AddDynamic(this, &ABikeProjectile::OnSphereOverlap);
 
 	Sphere->OnComponentHit.AddDynamic(this, &ABikeProjectile::OnHit);
+	UGameplayStatics::PlaySoundAtLocation(this, LaserShotSound, GetActorLocation(), FRotator::ZeroRotator);
 	
 }
 
@@ -52,10 +53,17 @@ void ABikeProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, 
 void ABikeProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	FVector NormalImpulse, const FHitResult& Hit)
 {
-	UE_LOG(LogTemp, Warning, TEXT("OnHit"));
-	UE_LOG(LogTemp, Warning, TEXT("HitComp: %s"), *HitComp->GetName());
-	UE_LOG(LogTemp, Warning, TEXT("OtherActor: %s"), *OtherActor->GetName());
-	UE_LOG(LogTemp, Warning, TEXT("OtherComp: %s"), *OtherComp->GetName());
+	auto MyOwner = GetOwner();
+	if (MyOwner == nullptr){return;}
+
+	auto MyOwnerInstigator = MyOwner->GetInstigatorController();
+	auto DamageTypeClass = UDamageType::StaticClass();
+
+	if (OtherActor && OtherActor != this && OtherActor != MyOwner)
+	{
+		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwnerInstigator, this, DamageTypeClass);
+		Destroy();
+	}
 }
 
 

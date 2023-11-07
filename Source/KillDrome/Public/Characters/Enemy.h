@@ -20,6 +20,7 @@ class KILLDROME_API AEnemy : public ABaseBike
 public:
 	AEnemy();
 	virtual void PossessedBy(AController* NewController) override;
+	virtual void HandleDeath() override;
 
 	UPROPERTY(BlueprintReadWrite, Category="Combat")
 	TObjectPtr<AActor> CombatTarget;
