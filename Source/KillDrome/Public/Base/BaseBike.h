@@ -37,5 +37,10 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category="Combat")
 	TSubclassOf<class ABikeProjectile> ProjectileClass;
 
+	bool bCanFire = true;
+	void CheckCanFire();
+
+	FTimerHandle FireRateTimerHandle;
+	float FireRate = 0.5f;
 
 };

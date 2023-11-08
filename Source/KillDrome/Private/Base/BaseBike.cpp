@@ -2,7 +2,7 @@
 
 
 #include "Base/BaseBike.h"
-
+#include "TimerManager.h"
 #include "Actors/Attributes.h"
 #include "Actors/BikeProjectile.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -30,11 +30,22 @@ void ABaseBike::BeginPlay()
 
 void ABaseBike::Fire()
 {
-	FVector Location = ProjectileSpawnPoint->GetComponentLocation();
-	FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
-	
-	auto Projectile = GetWorld()->SpawnActor<ABikeProjectile>(ProjectileClass, Location, Rotation);
-	Projectile->SetOwner(this);
+	if (bCanFire)
+	{
+		FVector Location = ProjectileSpawnPoint->GetComponentLocation();
+		FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
+
+		auto Projectile = GetWorld()->SpawnActor<ABikeProjectile>(ProjectileClass, Location, Rotation);
+		Projectile->SetOwner(this);
+
+		GetWorldTimerManager().SetTimer(FireRateTimerHandle, this, &ABaseBike::CheckCanFire, FireRate, false);
+	}
+	bCanFire = false;
+}
+
+void ABaseBike::CheckCanFire()
+{
+	bCanFire = true;
 }
 
 void ABaseBike::Tick(float DeltaTime)
