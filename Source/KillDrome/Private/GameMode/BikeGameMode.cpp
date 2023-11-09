@@ -28,7 +28,7 @@ void ABikeGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//HandleGameStart();
+	//HandleGameStart();  Uncomment when its time to build game
 
 	// Can add these to HandleGameStart when the game is ready to play
 	PlayerBike = Cast<APlayerBike>(UGameplayStatics::GetPlayerPawn(this, 0));
@@ -47,6 +47,12 @@ void ABikeGameMode::HandleGameStart()
 		// Timer that enables player input when the timer is done, after Startdelay time
 		FTimerHandle PlayerEnableTimerHandle;
 		FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(BikePlayerController, &ABikePlayerController::SetPlayerEnabledState, true);
-		GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate, Startdelay, false);
+		GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate, StartDelay, false);
 	}
+}
+
+int32 ABikeGameMode::GetTargetEnemyCount()
+{
+	//TODO check enemies killed vs enemies needed to kill
+	return 0;
 }

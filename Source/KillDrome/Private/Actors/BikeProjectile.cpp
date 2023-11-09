@@ -26,6 +26,8 @@ ABikeProjectile::ABikeProjectile()
 	ProjectileMovementComp->InitialSpeed = 1200.f;
 	ProjectileMovementComp->MaxSpeed = 1200.f;
 	ProjectileMovementComp->ProjectileGravityScale = 0.f;
+
+	InitialLifeSpan = 3.f;
 }
 
 
@@ -49,8 +51,15 @@ void ABikeProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 
 	if (OtherActor && OtherActor != this && OtherActor != MyOwner)
 	{
-		UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
-		UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
+		if (ImpactSound)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, ImpactSound, GetActorLocation(), FRotator::ZeroRotator);
+		}
+		if (ImpactEffect)
+		{
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
+		}
+		
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwnerInstigator, this, DamageTypeClass);
 		Destroy();
 	}

@@ -5,6 +5,7 @@
 #include "TimerManager.h"
 #include "Actors/Attributes.h"
 #include "Actors/BikeProjectile.h"
+#include "Actors/DeadActor.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -56,7 +57,16 @@ void ABaseBike::Tick(float DeltaTime)
 
 void ABaseBike::HandleDeath()
 {
-	
+	if (DeathSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, DeathSound,GetActorLocation(), FRotator::ZeroRotator);
+	}
+	if (ExplosionEffect)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(this, ExplosionEffect, GetActorLocation(), GetActorRotation());
+	}
+
+	GetWorld()->SpawnActor<ADeadActor>(DeadTargetClass, GetActorLocation(), GetActorRotation());
 }
 
 

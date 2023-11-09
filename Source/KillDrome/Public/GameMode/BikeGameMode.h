@@ -25,6 +25,9 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void StartGame();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void GameOver(bool bWonGame);
+
 private:
 
 	UPROPERTY()
@@ -34,8 +37,13 @@ private:
 	class ABikePlayerController* BikePlayerController;
 
 	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
-	float Startdelay = 3.f;
+	float StartDelay = 3.f;
 
 	void HandleGameStart();
+
+	int32 TargetEnemiesKilled = 0;
+	int32 GetTargetEnemyCount();
+	UPROPERTY(EditAnywhere)
+	int32 TargetEnemiesToKill = 0;
 	
 };

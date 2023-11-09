@@ -7,6 +7,7 @@
 #include "BaseBike.generated.h"
 
 class UAttributes;
+class UParticleSystem;
 
 UCLASS()
 class KILLDROME_API ABaseBike : public ACharacter
@@ -42,5 +43,14 @@ private:
 
 	FTimerHandle FireRateTimerHandle;
 	float FireRate = 0.5f;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UParticleSystem> ExplosionEffect;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase> DeathSound;
+
+	UPROPERTY(EditDefaultsOnly, Category="DeadActor")
+	TSubclassOf<class ADeadActor> DeadTargetClass;
 
 };
