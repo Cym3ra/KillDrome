@@ -24,6 +24,6 @@ private:
 	UPROPERTY(meta=(BindWidget))
 	class UProgressBar* HealthBar;
 
-	UPROPERTY(meta=(BindWidget))
+	UPROPERTY()
 	class UTextBlock* PointsText;
 };

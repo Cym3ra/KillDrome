@@ -5,6 +5,7 @@
 
 #include "GameMode/BikePlayerController.h"
 #include "HUD/MainOverlay.h"
+#include "HUD/CountDownTimer.h"
 
 void ABikeHUD::BeginPlay()
 {
