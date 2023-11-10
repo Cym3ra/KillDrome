@@ -34,6 +34,7 @@ private:
 	
 	class ABikeGameMode* BikeGameMode;
 	
-
+	UPROPERTY()
+	class APlayerBike* PlayerBike;
 		
 };

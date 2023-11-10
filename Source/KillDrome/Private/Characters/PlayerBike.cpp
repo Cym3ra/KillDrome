@@ -80,6 +80,15 @@ void APlayerBike::InitializeOverlay(APlayerController* PlayerController)
 	}
 }
 
+void APlayerBike::SetHUDHealth()
+{
+	if (MainOverlay && Attributes)
+	{
+		MainOverlay->SetHealthBarPercent(Attributes->GetHealthPercent());
+	}
+}
+
+
 void APlayerBike::HandleDeath()
 {
 	Super::HandleDeath();
