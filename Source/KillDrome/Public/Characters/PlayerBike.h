@@ -12,6 +12,7 @@ class UInputAction;
 class UBoxComponent;
 class UCameraComponent;
 class USpringArmComponent;
+class UMainOverlay;
 
 /**
  * 
@@ -54,5 +55,10 @@ private:
 
 	UPROPERTY()
 	APlayerController* PlayerBikeController;
+
+	UPROPERTY()
+	UMainOverlay* MainOverlay;
+
+	void InitializeOverlay(APlayerController* PlayerController);
 	
 };

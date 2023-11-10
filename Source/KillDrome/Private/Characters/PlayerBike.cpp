@@ -9,6 +9,9 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/BoxComponent.h"
+#include "HUD/BikeHUD.h"
+#include "HUD/MainOverlay.h"
+#include "Actors/Attributes.h"
 
 APlayerBike::APlayerBike()
 {
@@ -36,6 +39,7 @@ void APlayerBike::BeginPlay()
 
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 	{
+		InitializeOverlay(PlayerController);
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->AddMappingContext(VehicleContext, 0);
@@ -59,6 +63,20 @@ void APlayerBike::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		EnhancedInputComponent->BindAction(SteeringAction, ETriggerEvent::Triggered, this, &APlayerBike::ApplySteering);
 		//EnhancedInputComponent->BindAction(SteeringAction, ETriggerEvent::Completed, this, &ABaseBike::ApplySteering);
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &APlayerBike::Fire);
+	}
+}
+
+void APlayerBike::InitializeOverlay(APlayerController* PlayerController)
+{
+	ABikeHUD* BikeHUD = Cast<ABikeHUD>(PlayerController->GetHUD());
+	if (BikeHUD)
+	{
+		MainOverlay = BikeHUD->GetBikeOverlay();
+		if (MainOverlay && Attributes)
+		{
+			MainOverlay->SetHealthBarPercent(Attributes->GetHealthPercent());
+			MainOverlay->SetPointsText(0);
+		}
 	}
 }
 

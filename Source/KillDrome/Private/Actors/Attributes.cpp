@@ -31,7 +31,8 @@ void UAttributes::DamageTaken(AActor* DamagedActor, float Damage, const UDamageT
 {
 	if (Damage <= 0.f){return;}
 
-	CurrentHealth -= Damage;
+	CurrentHealth = FMath::Clamp(CurrentHealth - Damage, 0.f, MaxHealth);
+	//CurrentHealth -= Damage;
 
 	if (CurrentHealth <= 0.f && BikeGameMode)
 	{
@@ -39,10 +40,14 @@ void UAttributes::DamageTaken(AActor* DamagedActor, float Damage, const UDamageT
 	}
 }
 
-
 void UAttributes::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	
+}
+
+float UAttributes::GetHealthPercent()
+{
+	return CurrentHealth / MaxHealth;
 }
 
