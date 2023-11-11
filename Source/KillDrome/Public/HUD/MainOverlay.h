@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/TextBlock.h"
 #include "MainOverlay.generated.h"
 
 /**
@@ -17,13 +18,21 @@ class KILLDROME_API UMainOverlay : public UUserWidget
 public:
 
 	void SetHealthBarPercent(float Percent);
-	void SetPointsText(int32 Points);
+	void SetEnemiesToKill(int32 ToKill);
+	void SetEnemiesKilled(int32 Killed);
 
 private:
 	
 	UPROPERTY(meta=(BindWidget))
 	class UProgressBar* HealthBar;
 
-	UPROPERTY()
-	class UTextBlock* PointsText;
+	UPROPERTY(meta=(BindWidget))
+	class UTextBlock* TimerText;
+
+	UPROPERTY(meta=(BindWidget))
+	class UTextBlock* Enemies;
+
+	UPROPERTY(meta=(BindWidget))
+	class UTextBlock* EnemiesRemainingText;
+
 };

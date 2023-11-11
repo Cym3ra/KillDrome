@@ -8,7 +8,7 @@
 #include "GameMode/BikePlayerController.h"
 
 
-void ABikeGameMode::ActorDied(AActor* DeadActor)
+void ABikeGameMode::ActorDied(AActor* DeadActor, AController* Killer)
 {
 	if (DeadActor == PlayerBike)
 	{
@@ -20,6 +20,11 @@ void ABikeGameMode::ActorDied(AActor* DeadActor)
 	}
 	else if (AEnemy* KilledEnemy = Cast<AEnemy>(DeadActor))
 	{
+		if (Killer == BikePlayerController)
+		{
+			PlayerBike->AddEnemiesKilled(1);
+			//TargetEnemiesKilled++;
+		}
 		KilledEnemy->HandleDeath();
 	}
 }
@@ -27,7 +32,7 @@ void ABikeGameMode::ActorDied(AActor* DeadActor)
 void ABikeGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	//HandleGameStart();  Uncomment when its time to build game
 
 	// Can add these to HandleGameStart when the game is ready to play
@@ -35,9 +40,13 @@ void ABikeGameMode::BeginPlay()
 	BikePlayerController = Cast<ABikePlayerController>(UGameplayStatics::GetPlayerController(this, 0));
 }
 
+float ABikeGameMode::GetRemainingTime() const
+{
+	return TimeRemaining;
+}
+
 void ABikeGameMode::HandleGameStart()
 {
-
 	StartGame();
 	
 	if (BikePlayerController)
@@ -55,4 +64,9 @@ int32 ABikeGameMode::GetTargetEnemyCount()
 {
 	//TODO check enemies killed vs enemies needed to kill
 	return 0;
+}
+
+void ABikeGameMode::UpdateGameTimer()
+{
+	
 }

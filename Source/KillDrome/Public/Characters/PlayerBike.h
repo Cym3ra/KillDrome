@@ -28,6 +28,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void HandleDeath() override;
 	void SetHUDHealth();
+	void AddEnemiesKilled(int32 EnemiesKilled);
+	void AddEnemiesToEliminate(int32 EnemiesToKill);
 
 	FORCEINLINE TObjectPtr<APlayerController> GetPlayerController() const {return PlayerBikeController;}
 

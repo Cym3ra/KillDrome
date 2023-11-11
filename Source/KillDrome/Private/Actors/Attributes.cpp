@@ -40,7 +40,7 @@ void UAttributes::DamageTaken(AActor* DamagedActor, float Damage, const UDamageT
 
 	if (CurrentHealth <= 0.f && BikeGameMode)
 	{
-		BikeGameMode->ActorDied(DamagedActor);
+		BikeGameMode->ActorDied(DamagedActor, Instigator);
 	}
 }
 
@@ -53,5 +53,15 @@ void UAttributes::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 float UAttributes::GetHealthPercent()
 {
 	return CurrentHealth / MaxHealth;
+}
+
+void UAttributes::AddEnemiesToKill(int32 Enemies)
+{
+	TargetEnemiesToKill = Enemies;
+}
+
+void UAttributes::AddEnemiesKilled(int32 Killed)
+{
+	TargetEnemiesKilled += Killed;
 }
 

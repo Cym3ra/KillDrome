@@ -4,6 +4,7 @@
 #include "HUD/MainOverlay.h"
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
+#include "Kismet/GameplayStatics.h"
 
 void UMainOverlay::SetHealthBarPercent(float Percent)
 {
@@ -13,10 +14,19 @@ void UMainOverlay::SetHealthBarPercent(float Percent)
 	}
 }
 
-void UMainOverlay::SetPointsText(int32 Points)
+void UMainOverlay::SetEnemiesToKill(int32 ToKill)
 {
-	if (PointsText)
+	if (EnemiesRemainingText)
 	{
-		PointsText->SetText(FText::FromString(FString::Printf(TEXT("%d"), Points)));
+		EnemiesRemainingText->SetText(FText::FromString(FString::Printf(TEXT("Enemies to kill: %d"), ToKill)));
 	}
 }
+
+void UMainOverlay::SetEnemiesKilled(int32 Killed)
+{
+	if (Enemies)
+	{
+		Enemies->SetText(FText::FromString(FString::Printf(TEXT("%d"), Killed)));
+	}
+}
+

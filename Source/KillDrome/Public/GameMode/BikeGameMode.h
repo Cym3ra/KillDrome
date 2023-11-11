@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "HUD/MainOverlay.h"
 #include "BikeGameMode.generated.h"
 
 /**
@@ -16,7 +17,10 @@ class KILLDROME_API ABikeGameMode : public AGameModeBase
 
 public:
 
-	void ActorDied(AActor* DeadActor);
+
+	void ActorDied(AActor* DeadActor, AController* Killer);
+	UFUNCTION()
+	float GetRemainingTime() const;
 
 protected:
 
@@ -41,9 +45,17 @@ private:
 
 	void HandleGameStart();
 
+	UPROPERTY(VisibleAnywhere)
 	int32 TargetEnemiesKilled = 0;
 	int32 GetTargetEnemyCount();
 	UPROPERTY(EditAnywhere)
 	int32 TargetEnemiesToKill = 0;
+
+	void UpdateGameTimer();
+
+	float TimeRemaining = 60.f;
+
+	UPROPERTY()
+	UMainOverlay* MainOverlay;
 	
 };
