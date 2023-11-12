@@ -57,11 +57,17 @@ float UAttributes::GetHealthPercent()
 
 void UAttributes::AddEnemiesToKill(int32 Enemies)
 {
-	TargetEnemiesToKill = Enemies;
+	TargetEnemiesToKill -= Enemies;
 }
 
 void UAttributes::AddEnemiesKilled(int32 Killed)
 {
 	TargetEnemiesKilled += Killed;
+}
+
+int32 UAttributes::GetEnemiesLeftToKill()
+{
+	UpdateEnemiesToKill = TargetEnemiesToKill - TargetEnemiesKilled;
+	return UpdateEnemiesToKill;
 }
 

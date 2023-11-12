@@ -29,7 +29,8 @@ public:
 	virtual void HandleDeath() override;
 	void SetHUDHealth();
 	void AddEnemiesKilled(int32 EnemiesKilled);
-	void AddEnemiesToEliminate(int32 EnemiesToKill);
+	void AddEnemiesToEliminate();
+	void SetEnemiesKilledHUD();
 
 	FORCEINLINE TObjectPtr<APlayerController> GetPlayerController() const {return PlayerBikeController;}
 

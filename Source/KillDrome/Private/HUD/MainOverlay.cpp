@@ -18,7 +18,7 @@ void UMainOverlay::SetEnemiesToKill(int32 ToKill)
 {
 	if (EnemiesRemainingText)
 	{
-		EnemiesRemainingText->SetText(FText::FromString(FString::Printf(TEXT("Enemies to kill: %d"), ToKill)));
+		EnemiesRemainingText->SetText(FText::FromString(FString::Printf(TEXT("%d kills left"), ToKill)));
 	}
 }
 
@@ -26,7 +26,7 @@ void UMainOverlay::SetEnemiesKilled(int32 Killed)
 {
 	if (Enemies)
 	{
-		Enemies->SetText(FText::FromString(FString::Printf(TEXT("%d"), Killed)));
+		Enemies->SetText(FText::FromString(FString::Printf(TEXT("%d kills"), Killed)));
 	}
 }
 

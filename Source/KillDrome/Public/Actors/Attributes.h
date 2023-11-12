@@ -19,6 +19,7 @@ public:
 	float GetHealthPercent();
 	void AddEnemiesToKill(int32 Enemies);
 	void AddEnemiesKilled(int32 Killed);
+	int32 GetEnemiesLeftToKill();
 
 	FORCEINLINE int32 GetEnemiesToKill() const {return TargetEnemiesToKill;}
 	FORCEINLINE int32 GetEnemiesKilled() const {return TargetEnemiesKilled;}
@@ -47,5 +48,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere,Category="Enemies")
 	int32 TargetEnemiesKilled = 0;
-		
+
+	int32 UpdateEnemiesToKill;
 };

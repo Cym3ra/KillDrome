@@ -73,6 +73,7 @@ void APlayerBike::InitializeOverlay(APlayerController* PlayerController)
 	{
 		MainOverlay = BikeHUD->GetBikeOverlay();
 		SetHUDHealth();
+		MainOverlay->SetEnemiesToKill(Attributes->GetEnemiesToKill());
 	}
 }
 
@@ -81,7 +82,6 @@ void APlayerBike::SetHUDHealth()
 	if (MainOverlay && Attributes)
 	{
 		MainOverlay->SetHealthBarPercent(Attributes->GetHealthPercent());
-		AddEnemiesToEliminate(Attributes->GetEnemiesToKill());
 	}
 }
 
@@ -94,12 +94,13 @@ void APlayerBike::AddEnemiesKilled(int32 EnemiesKilled)
 	}
 }
 
-void APlayerBike::AddEnemiesToEliminate(int32 EnemiesToKill)
+void APlayerBike::AddEnemiesToEliminate()
 {
 	if (Attributes && MainOverlay)
 	{
-		Attributes->AddEnemiesToKill(EnemiesToKill);
-		MainOverlay->SetEnemiesToKill(Attributes->GetEnemiesToKill());
+		//Attributes->AddEnemiesToKill(EnemiesToKill);
+		//MainOverlay->SetEnemiesToKill(Attributes->GetEnemiesLeftToKill());
+		MainOverlay->SetEnemiesToKill(Attributes->GetEnemiesLeftToKill());
 	}
 }
 
