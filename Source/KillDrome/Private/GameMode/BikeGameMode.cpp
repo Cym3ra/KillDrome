@@ -24,7 +24,6 @@ void ABikeGameMode::ActorDied(AActor* DeadActor, AController* Killer)
 		{
 			PlayerBike->AddEnemiesKilled(1);
 			PlayerBike->AddEnemiesToEliminate();
-			//TargetEnemiesKilled++;
 		}
 		KilledEnemy->HandleDeath();
 	}

@@ -16,8 +16,7 @@ class KILLDROME_API ABikeGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-
-
+	
 	void ActorDied(AActor* DeadActor, AController* Killer);
 	UFUNCTION()
 	float GetRemainingTime() const;
@@ -44,13 +43,9 @@ private:
 	float StartDelay = 3.f;
 
 	void HandleGameStart();
-
-	UPROPERTY(VisibleAnywhere)
-	int32 TargetEnemiesKilled = 0;
+	
 	int32 GetTargetEnemyCount();
-	UPROPERTY(EditAnywhere)
-	int32 TargetEnemiesToKill = 0;
-
+	
 	void UpdateGameTimer();
 
 	float TimeRemaining = 60.f;

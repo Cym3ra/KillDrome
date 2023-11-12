@@ -98,8 +98,6 @@ void APlayerBike::AddEnemiesToEliminate()
 {
 	if (Attributes && MainOverlay)
 	{
-		//Attributes->AddEnemiesToKill(EnemiesToKill);
-		//MainOverlay->SetEnemiesToKill(Attributes->GetEnemiesLeftToKill());
 		MainOverlay->SetEnemiesToKill(Attributes->GetEnemiesLeftToKill());
 	}
 }
