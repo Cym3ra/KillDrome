@@ -25,6 +25,8 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category="Combat")
 	TObjectPtr<AActor> CombatTarget;
 
+	FORCEINLINE UBehaviorTree* GetBehaviorTree() const {return BehaviorTree;}
+
 protected:
 
 	UPROPERTY(EditAnywhere, Category="AI")
