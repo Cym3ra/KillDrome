@@ -2,6 +2,8 @@
 
 
 #include "Actors/Attributes.h"
+
+#include "Characters/Enemy.h"
 #include "Characters/PlayerBike.h"
 #include "GameMode/BikeGameMode.h"
 #include "Kismet/GameplayStatics.h"
@@ -36,6 +38,10 @@ void UAttributes::DamageTaken(AActor* DamagedActor, float Damage, const UDamageT
 	if (DamagedActor == PlayerBike)
 	{
 		PlayerBike->SetHUDHealth();
+	}
+	if (AEnemy* AttackedEnemy = Cast<AEnemy>(DamagedActor))
+	{
+		AttackedEnemy->HandleDamage(Instigator);
 	}
 
 	if (CurrentHealth <= 0.f && BikeGameMode)
