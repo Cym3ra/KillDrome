@@ -32,6 +32,7 @@ void AEnemy::CheckCombatTarget()
 	{
 		//inside attack range, attack pawn
 		EnemyState = EEnemyState::EES_Attacking;
+		Fire();
 	}
 }
 

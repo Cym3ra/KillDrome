@@ -47,7 +47,7 @@ private:
 	double AttackRadius = 150.f;
 
 	UPROPERTY(EditAnywhere)
-	double AcceptanceRadius = 50.f;
+	double AcceptanceRadius = 140.f;
 	
 	UPROPERTY()
 	TObjectPtr<AAIController> BikeAIController;
