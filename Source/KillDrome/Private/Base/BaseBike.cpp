@@ -69,6 +69,11 @@ void ABaseBike::HandleDeath()
 	GetWorld()->SpawnActor<ADeadActor>(DeadTargetClass, GetActorLocation(), GetActorRotation());
 }
 
+bool ABaseBike::IsAlive()
+{
+	return Attributes && Attributes->IsAlive();
+}
+
 
 
 

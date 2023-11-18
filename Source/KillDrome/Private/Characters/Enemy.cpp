@@ -15,24 +15,27 @@ AEnemy::AEnemy()
 
 void AEnemy::CheckCombatTarget()
 {
-	if (!InTargetRange(CombatTarget, CombatRadius))
+	if (IsOutsideCombatRadius())
 	{
-		//Outside combat radius, lose interest
-		CombatTarget = nullptr;
-		EnemyState = EEnemyState::EES_Patrolling;
-		MoveToTarget(PatrolTarget);
+		LoseInterest();
+		if (!IsEngaged())
+		{
+			StartPatrolling();
+		}
 	}
-	else if (!InTargetRange(CombatTarget, AttackRadius) && EnemyState != EEnemyState::EES_Chasing)
+	else if (IsOutsideAttackRadius() && !IsChasing())
 	{
-		// Outside attack range, chase character
-		EnemyState = EEnemyState::EES_Chasing;
-		MoveToTarget(CombatTarget);
+		ChaseTarget();
+		if (!IsEngaged())
+		{
+			ChaseTarget();
+		}
 	}
-	else if (InTargetRange(CombatTarget, AttackRadius) && EnemyState != EEnemyState::EES_Attacking)
+	else if (CanAttack())
 	{
 		//inside attack range, attack pawn
 		EnemyState = EEnemyState::EES_Attacking;
-		Fire();
+		Attack();
 	}
 }
 
@@ -49,9 +52,10 @@ void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (IsDead()) return;
 	if (EnemyState > EEnemyState::EES_Patrolling)
 	{
-			CheckCombatTarget();
+		CheckCombatTarget();
 	}
 	else
 	{
@@ -116,23 +120,99 @@ AActor* AEnemy::ChoosePatrolTarget()
 	return nullptr;
 }
 
+void AEnemy::Attack()
+{
+	if (CombatTarget == nullptr) return;
+	//EnemyState = EEnemyState::EES_Engaged;
+	EnemyState = EEnemyState::EES_NoState;
+	Fire();
+
+}
+
 void AEnemy::PawnSeen(APawn* SeenPawn)
 {
-	if (EnemyState == EEnemyState::EES_Chasing) return;
-	
-	CombatTarget = SeenPawn;
-	if (EnemyState != EEnemyState::EES_Attacking)
+	const bool bShouldChaseTarget = EnemyState != EEnemyState::EES_Dead &&
+			EnemyState != EEnemyState::EES_Chasing &&
+			EnemyState < EEnemyState::EES_Attacking;
+
+	if (bShouldChaseTarget)
 	{
-		EnemyState = EEnemyState::EES_Chasing;
-		MoveToTarget(CombatTarget);
+		CombatTarget = SeenPawn;
+		ChaseTarget();
 	}
+}
+
+void AEnemy::LoseInterest()
+{
+	//Outside combat radius, lose interest
+	CombatTarget = nullptr;
+}
+
+void AEnemy::StartPatrolling()
+{
+	EnemyState = EEnemyState::EES_Patrolling;
+	MoveToTarget(PatrolTarget);
+}
+
+void AEnemy::ChaseTarget()
+{
+	// Outside attack range, chase character
+	EnemyState = EEnemyState::EES_Chasing;
+	MoveToTarget(CombatTarget);
+}
+
+bool AEnemy::IsOutsideCombatRadius()
+{
+	return  !InTargetRange(CombatTarget, CombatRadius);
+}
+
+bool AEnemy::IsOutsideAttackRadius()
+{
+	return !InTargetRange(CombatTarget, AttackRadius);
+}
+
+bool AEnemy::IsChasing()
+{
+	return EnemyState == EEnemyState::EES_Chasing;
+}
+
+bool AEnemy::IsAttacking()
+{
+	return EnemyState == EEnemyState::EES_Attacking;
+}
+
+bool AEnemy::IsDead()
+{
+	return EnemyState == EEnemyState::EES_Dead;
+}
+
+bool AEnemy::IsEngaged()
+{
+	return EnemyState == EEnemyState::EES_Engaged;
+}
+
+bool AEnemy::CanAttack()
+{
+	const bool bCanAttack = IsInsideAttackRadius() && !IsAttacking() && !IsDead();
+	return bCanAttack;
+}
+
+bool AEnemy::IsInsideAttackRadius()
+{
+	return InTargetRange(CombatTarget, AttackRadius);
 }
 
 void AEnemy::HandleDamage(AController* Attacker)
 {
 	CombatTarget = Attacker->GetPawn();
-	EnemyState = EEnemyState::EES_Chasing;
-	MoveToTarget(CombatTarget);
+	if (IsInsideAttackRadius())
+	{
+		EnemyState = EEnemyState::EES_Attacking;
+	}
+	else if (IsOutsideAttackRadius())
+	{
+		ChaseTarget();
+	}
 	UE_LOG(LogTemp, Warning, TEXT("Attacker: %s"), *CombatTarget->GetName());
 }
 

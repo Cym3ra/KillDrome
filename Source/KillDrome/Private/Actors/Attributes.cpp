@@ -61,6 +61,11 @@ float UAttributes::GetHealthPercent()
 	return CurrentHealth / MaxHealth;
 }
 
+bool UAttributes::IsAlive()
+{
+	return CurrentHealth > 0.f;
+}
+
 void UAttributes::AddEnemiesToKill(int32 Enemies)
 {
 	TargetEnemiesToKill -= Enemies;

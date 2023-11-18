@@ -19,6 +19,7 @@ public:
 	ABaseBike();
 	virtual void Tick(float DeltaTime) override;
 	virtual void HandleDeath();
+	bool IsAlive();
 
 protected:
 

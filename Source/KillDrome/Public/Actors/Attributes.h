@@ -17,6 +17,7 @@ public:
 	UAttributes();
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	float GetHealthPercent();
+	bool IsAlive();
 	void AddEnemiesToKill(int32 Enemies);
 	void AddEnemiesKilled(int32 Killed);
 	int32 GetEnemiesLeftToKill();
