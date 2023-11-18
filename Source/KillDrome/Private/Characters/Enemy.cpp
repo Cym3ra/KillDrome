@@ -3,6 +3,7 @@
 
 #include "Characters/Enemy.h"
 #include "AIController.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Perception/PawnSensingComponent.h"
 
 AEnemy::AEnemy()
@@ -31,10 +32,11 @@ void AEnemy::CheckCombatTarget()
 			ChaseTarget();
 		}
 	}
-	else if (CanAttack())
+	else if (CanAttack() && IsInFireRange())
 	{
 		//inside attack range, attack pawn
 		EnemyState = EEnemyState::EES_Attacking;
+		RotateEnemy(CombatTarget->GetActorLocation());
 		Attack();
 	}
 }
@@ -96,7 +98,7 @@ void AEnemy::MoveToTarget(AActor* Target)
 	
 	FAIMoveRequest MoveRequest;
 	MoveRequest.SetGoalActor(Target);
-	MoveRequest.SetAcceptanceRadius(100.f);
+	MoveRequest.SetAcceptanceRadius(AcceptanceRadius);
 	BikeAIController->MoveTo(MoveRequest);
 }
 
@@ -124,9 +126,7 @@ void AEnemy::Attack()
 {
 	if (CombatTarget == nullptr) return;
 	//EnemyState = EEnemyState::EES_Engaged;
-	EnemyState = EEnemyState::EES_NoState;
 	Fire();
-
 }
 
 void AEnemy::PawnSeen(APawn* SeenPawn)
@@ -159,6 +159,13 @@ void AEnemy::ChaseTarget()
 	// Outside attack range, chase character
 	EnemyState = EEnemyState::EES_Chasing;
 	MoveToTarget(CombatTarget);
+}
+
+void AEnemy::RotateEnemy(FVector LookAtTarget)
+{
+	FVector ToTarget = LookAtTarget - GetMesh()->GetComponentLocation();
+	FRotator LookAtRotation = FRotator(0.f, ToTarget.Rotation().Yaw, 0.f);
+	GetMesh()->SetWorldRotation(LookAtRotation);
 }
 
 bool AEnemy::IsOutsideCombatRadius()
@@ -200,6 +207,16 @@ bool AEnemy::CanAttack()
 bool AEnemy::IsInsideAttackRadius()
 {
 	return InTargetRange(CombatTarget, AttackRadius);
+}
+
+bool AEnemy::IsInFireRange()
+{
+	float Distance = FVector::Dist(GetActorLocation(), CombatTarget->GetActorLocation());
+	if (Distance <= AttackMax && Distance >= AttackMin)
+	{
+		return true;
+	}
+	return false;
 }
 
 void AEnemy::HandleDamage(AController* Attacker)

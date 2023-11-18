@@ -43,6 +43,7 @@ private:
 	void LoseInterest();
 	void StartPatrolling();
 	void ChaseTarget();
+	void RotateEnemy(FVector LookAtTarget);
 	bool IsOutsideCombatRadius();
 	bool IsOutsideAttackRadius();
 	bool IsChasing();
@@ -51,15 +52,16 @@ private:
 	bool IsEngaged();
 	bool CanAttack();
 	bool IsInsideAttackRadius();
+	bool IsInFireRange();
 	
 	UPROPERTY(EditAnywhere)
-	double CombatRadius = 1000.f;
+	double CombatRadius = 2000.f;
 
 	UPROPERTY(EditAnywhere)
-	double AttackRadius = 150.f;
+	double AttackRadius = 1000.f;
 
 	UPROPERTY(EditAnywhere)
-	double AcceptanceRadius = 140.f;
+	double AcceptanceRadius = 250.f;
 	
 	UPROPERTY()
 	TObjectPtr<AAIController> BikeAIController;
@@ -86,9 +88,9 @@ private:
 	float PatrolWaitMax = 8.f;
 	FTimerHandle AttackTimer;
 	UPROPERTY(EditAnywhere, Category=Combat)
-	float AttackMin = 0.5f;
+	float AttackMin = 250.f;
 	UPROPERTY(EditAnywhere, Category=Combat)
-	float AttackMax = 1.f;
+	float AttackMax = 500.f;
 	UPROPERTY(EditAnywhere, Category=Combat)
 	float ChasingSpeed = 300.f;
 
