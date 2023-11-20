@@ -26,16 +26,21 @@ void AEnemy::HandleDeath()
 	Destroy();
 }
 
+APatrolPath* AEnemy::GetPatrolPath() const
+{
+	return PatrolPath;
+}
+
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FVector WorldPatrolPoint = UKismetMathLibrary::TransformLocation(GetActorTransform(), PatrolPoint);
+	//FVector WorldPatrolPoint = UKismetMathLibrary::TransformLocation(GetActorTransform(), PatrolPoint);
 
 	BikeAIController = Cast<ABikeAIController>(GetController());
 	if ( BikeAIController)
 	{
-		BikeAIController->GetBlackboardComponent()->SetValueAsVector(TEXT("PatrolPoint"), WorldPatrolPoint);
+		//BikeAIController->GetBlackboardComponent()->SetValueAsVector(TEXT("PatrolPoint"), WorldPatrolPoint);
 
 	}
 
