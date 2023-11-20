@@ -39,10 +39,6 @@ void UAttributes::DamageTaken(AActor* DamagedActor, float Damage, const UDamageT
 	{
 		PlayerBike->SetHUDHealth();
 	}
-	if (AEnemy* AttackedEnemy = Cast<AEnemy>(DamagedActor))
-	{
-		AttackedEnemy->HandleDamage(Instigator);
-	}
 
 	if (CurrentHealth <= 0.f && BikeGameMode)
 	{

@@ -20,11 +20,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void HandleDeath();
 	bool IsAlive();
+	void Fire();
 
 protected:
 
 	virtual void BeginPlay() override;
-	void Fire();
 	
 	UPROPERTY(VisibleAnywhere)
 	UAttributes* Attributes;

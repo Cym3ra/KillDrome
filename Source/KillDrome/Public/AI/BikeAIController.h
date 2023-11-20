@@ -8,7 +8,7 @@
 
 class UBlackboardComponent;
 class UBehaviorTreeComponent;
-
+class UPawnSensingComponent;
 /**
  * 
  */
@@ -19,10 +19,20 @@ class KILLDROME_API ABikeAIController : public AAIController
 
 public:
 	ABikeAIController();
+	virtual void OnPossess(APawn* InPawn) override;
+
+	UPROPERTY(BlueprintReadWrite, Category="Combat")
+	TObjectPtr<AActor> CombatTarget;
+
+	UPROPERTY(VisibleAnywhere)
+	UPawnSensingComponent* PawnSensing;
 
 protected:
-	
-	UPROPERTY()
+	virtual void BeginPlay() override;
+	UPROPERTY(BlueprintReadWrite, Category= "AI")
 	TObjectPtr<UBehaviorTreeComponent> BehaviorTreeComponent;
+
+	UFUNCTION()
+	void PawnSeen(APawn* SeenPawn); // Callback for OnPawnSeen in UPawnSensingComponent
 	
 };

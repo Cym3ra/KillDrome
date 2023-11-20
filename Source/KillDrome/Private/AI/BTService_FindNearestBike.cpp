@@ -13,17 +13,17 @@ void UBTService_FindNearestBike::TickNode(UBehaviorTreeComponent& OwnerComp, uin
 
 	APawn* OwningPawn = AIOwner->GetPawn();
 
-	const FName TargetTag = OwningPawn->ActorHasTag(FName("Player")) ? FName("Enemy") :  FName("Player");
+	//const FName TargetTag = OwningPawn->ActorHasTag(FName("Player")) ? FName("Enemy") :  FName("Player");
 
 	TArray<AActor*> ActorsWithTag;
-	UGameplayStatics::GetAllActorsWithTag(OwningPawn, TargetTag, ActorsWithTag);
+	UGameplayStatics::GetAllActorsWithTag(OwningPawn, FName("Target"), ActorsWithTag);
 
 	float ClosestDistance = TNumericLimits<float>::Max();
 	AActor* ClosestActor = nullptr;
 
 	for (AActor* Actor : ActorsWithTag)
 	{
-		if (IsValid(Actor) && IsValid(OwningPawn))
+		if (IsValid(Actor) && IsValid(OwningPawn) && Actor != OwningPawn)
 		{
 			const float Distance = OwningPawn->GetDistanceTo(Actor);
 
