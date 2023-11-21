@@ -54,4 +54,8 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category="DeadActor")
 	TSubclassOf<class ADeadActor> DeadTargetClass;
 
+	class UAIPerceptionStimuliSourceComponent* StimulusSource;
+
+	void SetupStimulusSource();
+
 };

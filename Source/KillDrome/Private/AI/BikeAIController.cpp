@@ -7,6 +7,8 @@
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Characters/Enemy.h"
+#include "Perception/AIPerceptionComponent.h"
+#include "Perception/AISenseConfig_Sight.h"
 #include "Perception/PawnSensingComponent.h"
 
 ABikeAIController::ABikeAIController()
@@ -20,6 +22,8 @@ ABikeAIController::ABikeAIController()
 	PawnSensing->SightRadius = 3000.f;
 	PawnSensing->SetPeripheralVisionAngle(55.f);
 	PawnSensing->bOnlySensePlayers = false;
+
+	SetupPerceptionSystem();
 	
 }
 
@@ -45,10 +49,10 @@ void ABikeAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (PawnSensing)
-	{
-		PawnSensing->OnSeePawn.AddDynamic(this, &ABikeAIController::PawnSeen);
-	}
+	// if (PawnSensing)
+	// {
+	// 	PawnSensing->OnSeePawn.AddDynamic(this, &ABikeAIController::PawnSeen);
+	// }
 }
 
 void ABikeAIController::PawnSeen(APawn* SeenPawn)
@@ -64,8 +68,39 @@ void ABikeAIController::PawnSeen(APawn* SeenPawn)
 		else
 		{
 			CombatTarget = nullptr;
+			GetBlackboardComponent()->ClearValue(TEXT("EnemyLocation"));
 		}
 
+	}
+}
+
+void ABikeAIController::SetupPerceptionSystem()
+{
+	SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Config"));
+
+	if (SightConfig)
+	{
+		SetPerceptionComponent(*CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("Perception Component")));
+		SightConfig->SightRadius = 1000.f;
+		SightConfig->LoseSightRadius = SightConfig->SightRadius + 25.f;
+		SightConfig->PeripheralVisionAngleDegrees = 120.f;
+		SightConfig->SetMaxAge(5.f);
+		SightConfig->AutoSuccessRangeFromLastSeenLocation = 1100.f;
+		SightConfig->DetectionByAffiliation.bDetectEnemies = true;
+		SightConfig->DetectionByAffiliation.bDetectFriendlies = true;
+		SightConfig->DetectionByAffiliation.bDetectNeutrals = true;
+
+		GetPerceptionComponent()->SetDominantSense(*SightConfig->GetSenseImplementation());
+		GetPerceptionComponent()->OnTargetPerceptionUpdated.AddDynamic(this, &ABikeAIController::OnTargetDetected);
+		GetPerceptionComponent()->ConfigureSense(*SightConfig);
+	}
+}
+
+void ABikeAIController::OnTargetDetected(AActor* Actor, FAIStimulus const Stimulus)
+{
+	if (auto* const SeenPawn = Cast<APawn>(Actor))
+	{
+		GetBlackboardComponent()->SetValueAsBool("CanSeeEnemy", Stimulus.WasSuccessfullySensed());
 	}
 }
 

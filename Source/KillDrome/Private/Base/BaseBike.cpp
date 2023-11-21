@@ -8,6 +8,8 @@
 #include "Actors/DeadActor.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Perception/AIPerceptionStimuliSourceComponent.h"
+#include "Perception/AISense_Sight.h"
 
 
 ABaseBike::ABaseBike()
@@ -21,6 +23,8 @@ ABaseBike::ABaseBike()
 	ProjectileSpawnPoint->SetupAttachment(GetMesh());
 
 	Attributes = CreateDefaultSubobject<UAttributes>("Attributes");
+
+	SetupStimulusSource();
 	
 }
 
@@ -47,6 +51,16 @@ void ABaseBike::Fire()
 void ABaseBike::CheckCanFire()
 {
 	bCanFire = true;
+}
+
+void ABaseBike::SetupStimulusSource()
+{
+	StimulusSource = CreateDefaultSubobject<UAIPerceptionStimuliSourceComponent>(TEXT("Stimulus"));
+	if (StimulusSource)
+	{
+		StimulusSource->RegisterForSense(TSubclassOf<UAISense_Sight>());
+		StimulusSource->RegisterWithPerceptionSystem();
+	}
 }
 
 void ABaseBike::Tick(float DeltaTime)

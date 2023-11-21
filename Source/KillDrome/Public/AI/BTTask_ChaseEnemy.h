@@ -4,20 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/Tasks/BTTask_BlackboardBase.h"
-#include "BehaviorTree/Tasks/BTTask_BlueprintBase.h"
-#include "BTTask_Attack.generated.h"
+#include "BTTask_ChaseEnemy.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class KILLDROME_API UBTTask_Attack : public UBTTask_BlackboardBase
+class KILLDROME_API UBTTask_ChaseEnemy : public UBTTask_BlackboardBase
 {
 	GENERATED_BODY()
 
 public:
 
-	UBTTask_Attack();
+	explicit UBTTask_ChaseEnemy();
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
-	
 };
