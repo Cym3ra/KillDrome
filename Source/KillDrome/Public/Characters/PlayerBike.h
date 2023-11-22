@@ -30,7 +30,7 @@ public:
 	void SetHUDHealth();
 	void AddEnemiesKilled(int32 EnemiesKilled);
 	void AddEnemiesToEliminate();
-	void SetEnemiesKilledHUD();
+	bool CheckIfWon();
 
 	FORCEINLINE TObjectPtr<APlayerController> GetPlayerController() const {return PlayerBikeController;}
 

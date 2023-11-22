@@ -21,6 +21,7 @@ public:
 	void AddEnemiesToKill(int32 Enemies);
 	void AddEnemiesKilled(int32 Killed);
 	int32 GetEnemiesLeftToKill();
+	bool HasKilledEnoughEnemies();
 
 	FORCEINLINE int32 GetEnemiesToKill() const {return TargetEnemiesToKill;}
 	FORCEINLINE int32 GetEnemiesKilled() const {return TargetEnemiesKilled;}
@@ -51,4 +52,5 @@ private:
 	int32 TargetEnemiesKilled = 0;
 
 	int32 UpdateEnemiesToKill;
+	
 };

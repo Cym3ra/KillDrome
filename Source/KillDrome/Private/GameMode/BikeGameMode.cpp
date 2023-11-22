@@ -13,10 +13,6 @@ void ABikeGameMode::ActorDied(AActor* DeadActor, AController* Killer)
 	if (DeadActor == PlayerBike)
 	{
 		PlayerBike->HandleDeath();
-		if (BikePlayerController)
-		{
-				BikePlayerController->SetPlayerEnabledState(false);
-		}
 	}
 	else if (AEnemy* KilledEnemy = Cast<AEnemy>(DeadActor))
 	{

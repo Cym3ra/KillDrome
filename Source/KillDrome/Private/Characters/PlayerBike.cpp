@@ -102,12 +102,22 @@ void APlayerBike::AddEnemiesToEliminate()
 	}
 }
 
+bool APlayerBike::CheckIfWon()
+{
+	if (Attributes)
+	{
+		if (Attributes->HasKilledEnoughEnemies())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void APlayerBike::HandleDeath()
 {
 	Super::HandleDeath();
-
-	SetActorHiddenInGame(true);
-	SetActorTickEnabled(false);
+	
 
 	//TODO: Implement that one the player dies, after a short wait the player spawns at the start again
 }

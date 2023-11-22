@@ -78,3 +78,8 @@ int32 UAttributes::GetEnemiesLeftToKill()
 	return UpdateEnemiesToKill;
 }
 
+bool UAttributes::HasKilledEnoughEnemies()
+{
+	return TargetEnemiesKilled >= TargetEnemiesToKill;
+}
+
