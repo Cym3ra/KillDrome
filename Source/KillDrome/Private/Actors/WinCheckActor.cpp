@@ -22,13 +22,12 @@ void AWinCheckActor::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerBike = Cast<APlayerBike>(UGameplayStatics::GetPlayerPawn(this, 0));
-	
+	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AWinCheckActor::OnSphereOverlap);
 }
 
 void AWinCheckActor::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Warning, TEXT("NoWin"));
 	if (OtherActor == PlayerBike)
 	{
 		if (PlayerBike->CheckIfWon())
