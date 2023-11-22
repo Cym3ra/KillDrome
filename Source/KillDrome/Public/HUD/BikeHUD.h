@@ -20,10 +20,10 @@ protected:
 
 private:
 
-	UPROPERTY(EditDefaultsOnly, Category= "Overlay")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category= "Overlay", meta=(AllowPrivateAccess = "true"))
 	TSubclassOf<class UMainOverlay> MainOverlayClass;
 
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, meta=(AllowPrivateAccess = "true"))
 	UMainOverlay* MainOverlay;
 
 public:
