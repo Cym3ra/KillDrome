@@ -30,3 +30,19 @@ void UMainOverlay::SetEnemiesKilled(int32 Killed)
 	}
 }
 
+void UMainOverlay::SetWinText()
+{
+	if (WinText)
+	{
+		WinText->SetVisibility(ESlateVisibility::Visible);
+	}
+}
+
+void UMainOverlay::HideWinText()
+{
+	if (WinText)
+	{
+		WinText->SetVisibility(ESlateVisibility::Hidden);
+	}
+}
+

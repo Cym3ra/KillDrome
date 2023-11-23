@@ -34,6 +34,7 @@ void ABikeGameMode::BeginPlay()
 	// Can add these to HandleGameStart when the game is ready to play
 	PlayerBike = Cast<APlayerBike>(UGameplayStatics::GetPlayerPawn(this, 0));
 	BikePlayerController = Cast<ABikePlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+	
 }
 
 float ABikeGameMode::GetRemainingTime() const

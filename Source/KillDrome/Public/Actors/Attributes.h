@@ -20,6 +20,7 @@ public:
 	bool IsAlive();
 	void AddEnemiesToKill(int32 Enemies);
 	void AddEnemiesKilled(int32 Killed);
+	void ResetHealth();
 	int32 GetEnemiesLeftToKill();
 	bool HasKilledEnoughEnemies();
 

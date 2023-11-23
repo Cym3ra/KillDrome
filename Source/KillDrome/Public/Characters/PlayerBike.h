@@ -31,6 +31,10 @@ public:
 	void AddEnemiesKilled(int32 EnemiesKilled);
 	void AddEnemiesToEliminate();
 	bool CheckIfWon();
+	virtual bool TeleportTo(const FVector& DestLocation, const FRotator& DestRotation, bool bIsATest, bool bNoCheck) override;
+	void LoadMenu();
+	void SetWinText();
+	void UnsetWinText();
 
 	FORCEINLINE TObjectPtr<APlayerController> GetPlayerController() const {return PlayerBikeController;}
 
@@ -64,5 +68,8 @@ private:
 	UMainOverlay* MainOverlay;
 
 	void InitializeOverlay(APlayerController* PlayerController);
+
+	UPROPERTY(EditAnywhere, Category="Location")
+	FVector RespawnLocation;
 	
 };

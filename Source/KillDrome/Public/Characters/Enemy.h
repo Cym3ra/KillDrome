@@ -44,4 +44,8 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "AI", meta=(AllowPrivateAccess = "true"))
 	APatrolPath* PatrolPath;
 
+	UPROPERTY(EditAnywhere, Category="Location")
+	AActor* RespawnPoint;
+
+	virtual bool TeleportTo(const FVector& DestLocation, const FRotator& DestRotation, bool bIsATest, bool bNoCheck) override;
 };

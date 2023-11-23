@@ -3,6 +3,7 @@
 
 #include "Actors/Attributes.h"
 
+#include "ModuleDescriptor.h"
 #include "Characters/Enemy.h"
 #include "Characters/PlayerBike.h"
 #include "GameMode/BikeGameMode.h"
@@ -70,6 +71,11 @@ void UAttributes::AddEnemiesToKill(int32 Enemies)
 void UAttributes::AddEnemiesKilled(int32 Killed)
 {
 	TargetEnemiesKilled += Killed;
+}
+
+void UAttributes::ResetHealth()
+{
+	CurrentHealth = MaxHealth;
 }
 
 int32 UAttributes::GetEnemiesLeftToKill()

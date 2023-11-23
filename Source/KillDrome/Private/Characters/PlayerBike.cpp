@@ -12,6 +12,7 @@
 #include "HUD/BikeHUD.h"
 #include "HUD/MainOverlay.h"
 #include "Actors/Attributes.h"
+#include "Kismet/GameplayStatics.h"
 
 APlayerBike::APlayerBike()
 {
@@ -114,10 +115,42 @@ bool APlayerBike::CheckIfWon()
 	return false;
 }
 
+bool APlayerBike::TeleportTo(const FVector& DestLocation, const FRotator& DestRotation, bool bIsATest, bool bNoCheck)
+{
+	return Super::TeleportTo(DestLocation, DestRotation, bIsATest, bNoCheck);
+}
+
+void APlayerBike::LoadMenu()
+{
+	UGameplayStatics::OpenLevel(GetWorld(), FName("MainMenu"));
+}
+
+void APlayerBike::SetWinText()
+{
+	if(MainOverlay)
+	{
+		MainOverlay->SetWinText();
+	}
+}
+
+void APlayerBike::UnsetWinText()
+{
+	if (MainOverlay)
+	{
+		MainOverlay->HideWinText();
+	}
+}
+
 void APlayerBike::HandleDeath()
 {
 	Super::HandleDeath();
+	TeleportTo(RespawnLocation, GetActorRotation(), false, false);
 	
+	if (MainOverlay && Attributes)
+	{
+		Attributes->ResetHealth();
+		MainOverlay->SetHealthBarPercent(Attributes->GetHealthPercent());
+	}
 
 	//TODO: Implement that one the player dies, after a short wait the player spawns at the start again
 }

@@ -32,10 +32,17 @@ void AWinCheckActor::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, A
 	{
 		if (PlayerBike->CheckIfWon())
 		{
-			UE_LOG(LogTemp, Warning, TEXT("WON"));
+			PlayerBike->SetWinText();
+			GetWorldTimerManager().SetTimer(LoadLevelTimer, this, &AWinCheckActor::LoadingLevel, LoadTime, false);
 		}
 	}
 	
+}
+
+void AWinCheckActor::LoadingLevel()
+{
+	PlayerBike->UnsetWinText();
+	PlayerBike->LoadMenu();
 }
 
 void AWinCheckActor::Tick(float DeltaTime)

@@ -30,5 +30,9 @@ private:
 
 	UPROPERTY()
 	class APlayerBike* PlayerBike;
-	
+
+	FTimerHandle LoadLevelTimer;
+	float LoadTime = 3.f;
+
+	void LoadingLevel();
 };

@@ -2,6 +2,8 @@
 
 
 #include "Characters/Enemy.h"
+
+#include "Actors/Attributes.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "AI/BikeAIController.h"
 #include "BehaviorTree/BehaviorTree.h"
@@ -23,7 +25,13 @@ void AEnemy::Tick(float DeltaTime)
 void AEnemy::HandleDeath()
 {
 	Super::HandleDeath();
-	Destroy();
+
+	TeleportTo(RespawnPoint->GetActorLocation(), GetActorRotation(), false, false);
+	if (Attributes)
+	{
+		Attributes->ResetHealth();
+	}
+
 }
 
 APatrolPath* AEnemy::GetPatrolPath() const
@@ -35,15 +43,13 @@ void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//FVector WorldPatrolPoint = UKismetMathLibrary::TransformLocation(GetActorTransform(), PatrolPoint);
-
 	BikeAIController = Cast<ABikeAIController>(GetController());
-	if ( BikeAIController)
-	{
-		//BikeAIController->GetBlackboardComponent()->SetValueAsVector(TEXT("PatrolPoint"), WorldPatrolPoint);
+	
+}
 
-	}
-
+bool AEnemy::TeleportTo(const FVector& DestLocation, const FRotator& DestRotation, bool bIsATest, bool bNoCheck)
+{
+	return Super::TeleportTo(DestLocation, DestRotation, bIsATest, bNoCheck);
 }
 
 

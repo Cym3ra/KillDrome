@@ -23,8 +23,8 @@ ABikeProjectile::ABikeProjectile()
 	// Sphere->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 
 	ProjectileMovementComp = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovement");
-	ProjectileMovementComp->InitialSpeed = 1200.f;
-	ProjectileMovementComp->MaxSpeed = 1200.f;
+	ProjectileMovementComp->InitialSpeed = 2100.f;
+	ProjectileMovementComp->MaxSpeed = 2000.f;
 	ProjectileMovementComp->ProjectileGravityScale = 0.f;
 
 	InitialLifeSpan = 3.f;

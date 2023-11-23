@@ -18,4 +18,5 @@ class KILLDROME_API ABikePlayerController : public APlayerController
 public:
 
 	void SetPlayerEnabledState(bool bPlayerEnabled);
+	
 };
