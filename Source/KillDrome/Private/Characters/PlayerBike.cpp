@@ -151,8 +151,6 @@ void APlayerBike::HandleDeath()
 		Attributes->ResetHealth();
 		MainOverlay->SetHealthBarPercent(Attributes->GetHealthPercent());
 	}
-
-	//TODO: Implement that one the player dies, after a short wait the player spawns at the start again
 }
 
 void APlayerBike::ApplyThrottle(const FInputActionValue& Value)
@@ -168,7 +166,7 @@ void APlayerBike::ApplyThrottle(const FInputActionValue& Value)
 	{
 	FRotator Rotation = Controller->GetControlRotation();
 	FRotator YawRotation(0.0f, Rotation.Yaw, 0.0f);
-	float TurnValue = Value.Get<float>() * 0.6;
+	float TurnValue = Value.Get<float>() * 0.8;
 	FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 	AddMovementInput(RightDirection, TurnValue);
 	AddControllerYawInput(TurnValue);
