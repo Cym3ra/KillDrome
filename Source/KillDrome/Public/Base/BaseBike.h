@@ -43,7 +43,7 @@ private:
 	void CheckCanFire();
 
 	FTimerHandle FireRateTimerHandle;
-	float FireRate = 0.5f;
+	float FireRate = 0.35f;
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UParticleSystem> ExplosionEffect;
