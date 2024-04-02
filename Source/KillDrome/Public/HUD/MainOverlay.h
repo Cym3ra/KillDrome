@@ -20,6 +20,7 @@ public:
 	void SetHealthBarPercent(float Percent);
 	void SetEnemiesToKill(int32 ToKill);
 	void SetEnemiesKilled(int32 Killed);
+	void SetCountDownText(float CountDownTime);
 	void SetWinText();
 	void HideWinText();
 

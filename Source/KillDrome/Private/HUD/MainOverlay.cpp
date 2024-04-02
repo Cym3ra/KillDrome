@@ -30,6 +30,18 @@ void UMainOverlay::SetEnemiesKilled(int32 Killed)
 	}
 }
 
+void UMainOverlay::SetCountDownText(float CountDownTime)
+{
+	if (TimerText)
+	{
+		int32 Minutes = FMath::FloorToInt(CountDownTime / 60.f);
+		int32 Seconds = CountDownTime - Minutes * 60;
+
+		FString CountDownText = FString::Printf(TEXT("%02d:%02d"), Minutes, Seconds);
+		TimerText->SetText(FText::FromString(CountDownText));
+	}
+}
+
 void UMainOverlay::SetWinText()
 {
 	if (WinText)

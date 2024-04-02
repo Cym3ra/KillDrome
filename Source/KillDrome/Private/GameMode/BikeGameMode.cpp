@@ -37,9 +37,9 @@ void ABikeGameMode::BeginPlay()
 	
 }
 
-float ABikeGameMode::GetRemainingTime() const
+void ABikeGameMode::Tick(float DeltaSeconds)
 {
-	return TimeRemaining;
+	Super::Tick(DeltaSeconds);
 }
 
 void ABikeGameMode::HandleGameStart()
@@ -63,7 +63,3 @@ int32 ABikeGameMode::GetTargetEnemyCount()
 	return 0;
 }
 
-void ABikeGameMode::UpdateGameTimer()
-{
-	
-}

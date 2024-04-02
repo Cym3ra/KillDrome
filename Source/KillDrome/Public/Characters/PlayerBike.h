@@ -68,8 +68,10 @@ private:
 	UMainOverlay* MainOverlay;
 
 	void InitializeOverlay(APlayerController* PlayerController);
+	void UpdateGameTimer();
 
 	UPROPERTY(EditAnywhere, Category="Location")
 	FVector RespawnLocation;
-	
+	float TimeRemaining = 120.f;
+	uint32 CountDownInt = 0;
 };

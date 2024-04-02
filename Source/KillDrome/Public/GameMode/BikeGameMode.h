@@ -21,6 +21,8 @@ public:
 	UFUNCTION()
 	float GetRemainingTime() const;
 
+	virtual void Tick(float DeltaSeconds) override;
+
 protected:
 
 	virtual void BeginPlay() override;
@@ -46,9 +48,6 @@ private:
 	
 	int32 GetTargetEnemyCount();
 	
-	void UpdateGameTimer();
-
-	float TimeRemaining = 60.f;
 
 	UPROPERTY()
 	UMainOverlay* MainOverlay;

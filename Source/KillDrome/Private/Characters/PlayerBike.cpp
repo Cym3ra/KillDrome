@@ -51,6 +51,8 @@ void APlayerBike::BeginPlay()
 void APlayerBike::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	UpdateGameTimer();
+	
 }
 
 void APlayerBike::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -75,6 +77,19 @@ void APlayerBike::InitializeOverlay(APlayerController* PlayerController)
 		MainOverlay = BikeHUD->GetBikeOverlay();
 		SetHUDHealth();
 		MainOverlay->SetEnemiesToKill(Attributes->GetEnemiesToKill());
+	}
+}
+
+void APlayerBike::UpdateGameTimer()
+{
+	if (MainOverlay)
+	{
+		uint32 SecondsLeft = FMath::CeilToInt(TimeRemaining - GetWorld()->GetTimeSeconds());
+		if (CountDownInt != SecondsLeft)
+		{
+			MainOverlay->SetCountDownText(TimeRemaining - GetWorld()->GetTimeSeconds());
+		}
+		CountDownInt = SecondsLeft;
 	}
 }
 
