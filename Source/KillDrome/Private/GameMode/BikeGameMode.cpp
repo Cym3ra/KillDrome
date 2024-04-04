@@ -25,6 +25,13 @@ void ABikeGameMode::ActorDied(AActor* DeadActor, AController* Killer)
 	}
 }
 
+void ABikeGameMode::LoadLevelDelay()
+{
+	FTimerHandle PlayerEnableTimerHandle;
+	FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(BikePlayerController, &ABikePlayerController::SetPlayerEnabledState, false);
+	GetWorldTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableTimerDelegate, LoadDelay, false);
+}
+
 void ABikeGameMode::BeginPlay()
 {
 	Super::BeginPlay();

@@ -23,6 +23,7 @@ public:
 	void ResetHealth();
 	int32 GetEnemiesLeftToKill();
 	bool HasKilledEnoughEnemies();
+	void SetPlayerInputDisabled();
 
 	FORCEINLINE int32 GetEnemiesToKill() const {return TargetEnemiesToKill;}
 	FORCEINLINE int32 GetEnemiesKilled() const {return TargetEnemiesKilled;}

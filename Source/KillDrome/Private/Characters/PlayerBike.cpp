@@ -52,7 +52,6 @@ void APlayerBike::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	UpdateGameTimer();
-	
 }
 
 void APlayerBike::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -89,8 +88,23 @@ void APlayerBike::UpdateGameTimer()
 		{
 			MainOverlay->SetCountDownText(TimeRemaining - GetWorld()->GetTimeSeconds());
 		}
+		
 		CountDownInt = SecondsLeft;
+
+		if (SecondsLeft <= 0)
+		{
+			MainOverlay->SetCountDownText(0);
+			HandleGameOver();
+		}
 	}
+}
+
+void APlayerBike::HandleGameOver()
+{
+	MainOverlay->SetGameOverText();
+	Attributes->SetPlayerInputDisabled();
+	FTimerHandle LoadLevelTimer;
+	GetWorldTimerManager().SetTimer(LoadLevelTimer, this, &APlayerBike::LoadMenu, LoadLevelDelay, false);
 }
 
 void APlayerBike::SetHUDHealth()

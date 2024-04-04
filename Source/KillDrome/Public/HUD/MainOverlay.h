@@ -23,6 +23,7 @@ public:
 	void SetCountDownText(float CountDownTime);
 	void SetWinText();
 	void HideWinText();
+	void SetGameOverText();
 
 private:
 	
@@ -30,15 +31,20 @@ private:
 	class UProgressBar* HealthBar;
 
 	UPROPERTY(meta=(BindWidget))
-	class UTextBlock* TimerText;
+	UTextBlock* TimerText;
 
 	UPROPERTY(meta=(BindWidget))
-	class UTextBlock* Enemies;
+	UTextBlock* Enemies;
 
 	UPROPERTY(meta=(BindWidget))
-	class UTextBlock* EnemiesRemainingText;
+	UTextBlock* EnemiesRemainingText;
 
 	UPROPERTY(meta=(BindWidget))
-	class UTextBlock* WinText;
+	UTextBlock* WinText;
 
+	UPROPERTY(meta=(BindWidget))
+	UTextBlock* LoseText;
+
+	UPROPERTY(meta=(BindWidget))
+	UTextBlock* ReloadText;
 };

@@ -58,3 +58,12 @@ void UMainOverlay::HideWinText()
 	}
 }
 
+void UMainOverlay::SetGameOverText()
+{
+	if (LoseText && ReloadText)
+	{
+		LoseText->SetVisibility(ESlateVisibility::Visible);
+		ReloadText->SetVisibility(ESlateVisibility::Visible);
+	}
+}
+

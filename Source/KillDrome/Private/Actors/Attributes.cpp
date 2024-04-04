@@ -89,3 +89,8 @@ bool UAttributes::HasKilledEnoughEnemies()
 	return TargetEnemiesKilled >= TargetEnemiesToKill;
 }
 
+void UAttributes::SetPlayerInputDisabled()
+{
+	BikeGameMode->LoadLevelDelay();
+}
+

@@ -18,9 +18,9 @@ class KILLDROME_API ABikeGameMode : public AGameModeBase
 public:
 	
 	void ActorDied(AActor* DeadActor, AController* Killer);
-	UFUNCTION()
-	float GetRemainingTime() const;
+	void LoadLevelDelay();
 
+	
 	virtual void Tick(float DeltaSeconds) override;
 
 protected:
@@ -43,7 +43,8 @@ private:
 
 	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess = "true"))
 	float StartDelay = 3.f;
-
+	float LoadDelay = 2.f;
+	
 	void HandleGameStart();
 	
 	int32 GetTargetEnemyCount();
@@ -51,5 +52,4 @@ private:
 
 	UPROPERTY()
 	UMainOverlay* MainOverlay;
-	
 };

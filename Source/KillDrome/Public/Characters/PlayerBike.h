@@ -69,9 +69,13 @@ private:
 
 	void InitializeOverlay(APlayerController* PlayerController);
 	void UpdateGameTimer();
+	void HandleGameOver();
 
 	UPROPERTY(EditAnywhere, Category="Location")
 	FVector RespawnLocation;
+	UPROPERTY(EditDefaultsOnly, Category="CountDownTimer", meta=(AllowPrivateAccess = "true"))
 	float TimeRemaining = 120.f;
 	uint32 CountDownInt = 0;
+
+	float LoadLevelDelay = 2.f;
 };
