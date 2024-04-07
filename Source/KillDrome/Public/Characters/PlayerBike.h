@@ -78,4 +78,5 @@ private:
 	uint32 CountDownInt = 0;
 
 	float LoadLevelDelay = 2.f;
+	bool bIsGameOver = false;
 };

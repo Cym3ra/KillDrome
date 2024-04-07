@@ -51,7 +51,18 @@ void APlayerBike::BeginPlay()
 void APlayerBike::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	UpdateGameTimer();
+
+	if (!bIsGameOver)
+	{
+		UpdateGameTimer();
+	}
+	else
+	{
+		if (MainOverlay)
+		{
+			MainOverlay->SetTimeIsUpText(0);
+		}
+	}
 }
 
 void APlayerBike::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -93,7 +104,6 @@ void APlayerBike::UpdateGameTimer()
 
 		if (SecondsLeft <= 0)
 		{
-			MainOverlay->SetCountDownText(0);
 			HandleGameOver();
 		}
 	}
@@ -101,6 +111,7 @@ void APlayerBike::UpdateGameTimer()
 
 void APlayerBike::HandleGameOver()
 {
+	bIsGameOver = true;
 	MainOverlay->SetGameOverText();
 	Attributes->SetPlayerInputDisabled();
 	FTimerHandle LoadLevelTimer;

@@ -21,6 +21,7 @@ public:
 	void SetEnemiesToKill(int32 ToKill);
 	void SetEnemiesKilled(int32 Killed);
 	void SetCountDownText(float CountDownTime);
+	void SetTimeIsUpText(float FinishedTime);
 	void SetWinText();
 	void HideWinText();
 	void SetGameOverText();

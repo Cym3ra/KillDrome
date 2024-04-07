@@ -42,6 +42,15 @@ void UMainOverlay::SetCountDownText(float CountDownTime)
 	}
 }
 
+void UMainOverlay::SetTimeIsUpText(float FinishedTime)
+{
+	if (TimerText)
+	{
+		FString TimerFinished = FString::Printf(TEXT("%02d:%02d"), static_cast<int>(FinishedTime), static_cast<int>(FinishedTime));
+		TimerText->SetText(FText::FromString(TimerFinished));
+	}
+}
+
 void UMainOverlay::SetWinText()
 {
 	if (WinText)
